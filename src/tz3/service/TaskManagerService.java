@@ -114,10 +114,8 @@ public class TaskManagerService {
         ArrayList<Subtask> epicSubtasks = new ArrayList<>();
         ArrayList<Integer> subTaskIds = epic.getSubTaskIds();
         for (Integer subTaskId : subTaskIds) {
-            for (Integer subtask : subtasks.keySet()) {
-                if (subtask.equals(subTaskId)) {
-                    epicSubtasks.add(subtasks.get(subtask));
-                }
+            if (subtasks.keySet().contains(subTaskId)) {
+                epicSubtasks.add(subtasks.get(subTaskId));
             }
         }
         return epicSubtasks;
@@ -149,48 +147,26 @@ public class TaskManagerService {
     //Получение по идентификатору.
     public Task getTask(Integer taskId) {
         Task tmpTask = tasks.get(taskId);
-        for (Integer task : tasks.keySet()) {
-            if (task.equals(taskId)) {
-                tmpTask = tasks.get(task);
-                break;
+            if (tasks.keySet().contains(taskId)) {
+                tmpTask = tasks.get(taskId);
             }
-        }
         return tmpTask;
     }
 
     public Subtask getSubtask(Integer subtaskId) {
         Subtask tmpSubtask = subtasks.get(subtaskId);
-        for (Integer subtask : subtasks.keySet()) {
-            if (subtask.equals(subtaskId)) {
-                tmpSubtask = subtasks.get(subtask);
-                break;
-            }
+        if (subtasks.keySet().contains(subtaskId)) {
+                tmpSubtask = subtasks.get(subtaskId);
         }
         return tmpSubtask;
     }
 
     public Epic getEpic(Integer epicId) {
         Epic tmpEpic = epics.get(epicId);
-        for (Integer epic : epics.keySet()) {
-            if (epic.equals(epicId)) {
-                tmpEpic = epics.get(epic);
-                break;
-            }
+        if (epics.keySet().contains(epicId)) {
+                tmpEpic = epics.get(epicId);
         }
         return tmpEpic;
-    }
-
-    //Создание. Сам объект должен передаваться в качестве параметра.
-    public void createTask(Task task) {
-        addTask(task);
-    }
-
-    public void createEpic(Epic epic) {
-        addEpic(epic);
-    }
-
-    public void createSubtask(Subtask subtask) {
-        addSubtask(subtask);
     }
 
     //Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра.
@@ -226,7 +202,6 @@ public class TaskManagerService {
             //добавляем статус
             updateEpicStatus(epic);
         }
-
     }
 
     //Удаление по идентификатору.
