@@ -170,22 +170,39 @@ public class TaskManagerService {
 
     //Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра.
     public void updateTask(Task task) {
-        tasks.put(task.getId(), task);
+        Integer inputTaskId = task.getId();
+        //проверка на то, что такой id уже есть
+        for (Integer taskId : tasks.keySet()) {
+            if (taskId.equals(inputTaskId)) {
+                tasks.put(task.getId(), task);
+            }
+        }
     }
 
     public void updateSubtask(Subtask subtask) {
-        subtasks.put(subtask.getId(), subtask);
-        Integer epicID = subtask.getEpicID();
-        //добавить в эпик id сабтаска
-        getEpic(epicID).addSubTask(subtask.getId());
-        //проверка статуса соответсвующего эпика при добавлении сабтаска
-        updateEpicStatus(getEpic(epicID));
+        Integer inputSubtaskId = subtask.getId();
+        for (Integer sub : subtasks.keySet()) {
+            //если такой сабтаск уже есть в мапе
+            if (sub.equals(inputSubtaskId)) {
+                subtasks.put(subtask.getId(), subtask);
+                Integer epicID = subtask.getEpicID();
+                //добавить в эпик id сабтаска
+                getEpic(epicID).addSubTask(subtask.getId());
+                //проверка статуса соответсвующего эпика при добавлении сабтаска
+                updateEpicStatus(getEpic(epicID));
+            }
+        }
     }
 
     public void updateEpic(Epic epic) {
-        epics.put(epic.getId(), epic);
-        //добавляем статус
-        updateEpicStatus(epic);
+        Integer inputEpic = epic.getId();
+        for (Integer ep : epics.keySet()) {
+            if (ep.equals(inputEpic)) {
+                epics.put(inputEpic, epic);
+                //добавляем статус
+                updateEpicStatus(epic);
+            }
+        }
     }
 
     //Удаление по идентификатору.
@@ -203,15 +220,14 @@ public class TaskManagerService {
         for (Integer subtask : subtasks.keySet()) {
             if (subtask.equals(subtaskId)) {
                 epicNum = subtasks.get(subtask).getEpicID();
+                //удалить из эпика id удаленного сабтаска
+                getEpic(epicNum).getSubTaskIds().remove(subtaskId);
+                //обновление статуса соответсвующего эпика
+                updateEpicStatus(getEpic(epicNum));
                 subtasks.remove(subtask);
                 break;
             }
         }
-        //удалить из эпика id удаленного сабтаска
-        getEpic(epicNum).getSubTaskIds().remove(subtaskId);
-        //обновление статуса соответсвующего эпика
-        updateEpicStatus(getEpic(epicNum));
-
     }
 
     public void removeEpic(Integer epicId) {
