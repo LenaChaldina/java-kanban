@@ -1,3 +1,8 @@
+package tz3.task;
+
+import tz3.constants.Status;
+
+
 public class Task {
     protected Integer id;
     protected String name;
@@ -50,7 +55,7 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
+        return "tz3.task.Task{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +

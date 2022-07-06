@@ -1,3 +1,7 @@
+package tz3.task;
+
+import tz3.constants.Status;
+
 public class Subtask extends Task {
     private int epicID;
 
@@ -18,7 +22,7 @@ public class Subtask extends Task {
 
     @Override
     public String toString() {
-        return "Subtask{" +
+        return "tz3.task.Subtask{" +
                 "epicID=" + epicID +
                 ", id=" + id +
                 ", name='" + name + '\'' +

@@ -1,12 +1,31 @@
+package tz3.service;
+
+import tz3.constants.Status;
+import tz3.task.Epic;
+import tz3.task.Subtask;
+import tz3.task.Task;
+
 import java.util.HashMap;
 import java.util.ArrayList;
 
 public class TaskManagerService {
-    public HashMap<Integer, Task> tasks = new HashMap<>();
-    public HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    public HashMap<Integer, Epic> epics = new HashMap<>();
+    private HashMap<Integer, Task> tasks = new HashMap<>();
+    private HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    private HashMap<Integer, Epic> epics = new HashMap<>();
 
     private int generator = 0;
+
+    public HashMap<Integer, Task> getResultTasks() {
+        return tasks;
+    }
+
+    public HashMap<Integer, Subtask> getResultSubtasks() {
+        return subtasks;
+    }
+
+    public HashMap<Integer, Epic> getResultEpics() {
+        return epics;
+    }
 
     public void addTask(Task task) {
         int taskId = generator++;
@@ -23,9 +42,11 @@ public class TaskManagerService {
     public void addSubtask(Subtask subtask) {
         int epicId = subtask.getEpicID();
         Epic epic = epics.get(epicId);
+
         if (epic == null) {
             return;
         }
+
         //сохраняем подзадачу
         int subtaskId = generator++;
         subtask.setId(subtaskId);
@@ -109,10 +130,6 @@ public class TaskManagerService {
 
     public void removeSubtasks() {
         subtasks.clear();
-        //обнуляем у всех эпиков список сабтасков
-        for (Epic epic : epics.values()) {
-            epic.getSubTaskIds().clear();
-        }
     }
 
     public void removeEpics() {
@@ -123,7 +140,7 @@ public class TaskManagerService {
 
     //Получение по идентификатору.
     public Task getTask(Integer taskId) {
-        Task tmpTask = new Task("", null, null);
+        Task tmpTask = tasks.get(taskId);
         for (Integer task : tasks.keySet()) {
             if (task.equals(taskId)) {
                 tmpTask = tasks.get(task);
@@ -134,7 +151,7 @@ public class TaskManagerService {
     }
 
     public Subtask getSubtask(Integer subtaskId) {
-        Subtask tmpSubtask = new Subtask(null, null, null, 0);
+        Subtask tmpSubtask = subtasks.get(subtaskId);
         for (Integer subtask : subtasks.keySet()) {
             if (subtask.equals(subtaskId)) {
                 tmpSubtask = subtasks.get(subtask);
@@ -145,7 +162,7 @@ public class TaskManagerService {
     }
 
     public Epic getEpic(Integer epicId) {
-        Epic tmpEpic = new Epic(null, null);
+        Epic tmpEpic = epics.get(epicId);
         for (Integer epic : epics.keySet()) {
             if (epic.equals(epicId)) {
                 tmpEpic = epics.get(epic);
@@ -171,77 +188,67 @@ public class TaskManagerService {
     //Обновление. Новая версия объекта с верным идентификатором передаётся в виде параметра.
     public void updateTask(Task task) {
         Integer inputTaskId = task.getId();
+
         //проверка на то, что такой id уже есть
-        for (Integer taskId : tasks.keySet()) {
-            if (taskId.equals(inputTaskId)) {
-                tasks.put(task.getId(), task);
-            }
+        if (tasks.keySet().contains(inputTaskId)) {
+            tasks.put(task.getId(), task);
         }
     }
 
     public void updateSubtask(Subtask subtask) {
         Integer inputSubtaskId = subtask.getId();
-        for (Integer sub : subtasks.keySet()) {
-            //если такой сабтаск уже есть в мапе
-            if (sub.equals(inputSubtaskId)) {
-                subtasks.put(subtask.getId(), subtask);
-                Integer epicID = subtask.getEpicID();
-                //добавить в эпик id сабтаска
-                getEpic(epicID).addSubTask(subtask.getId());
-                //проверка статуса соответсвующего эпика при добавлении сабтаска
-                updateEpicStatus(getEpic(epicID));
-            }
+
+        //если такой сабтаск уже есть в мапе
+        if (subtasks.keySet().contains(inputSubtaskId)) {
+            subtasks.put(subtask.getId(), subtask);
+            Integer epicID = subtask.getEpicID();
+            //добавить в эпик id сабтаска
+            getEpic(epicID).addSubTask(subtask.getId());
+            //проверка статуса соответсвующего эпика при добавлении сабтаска
+            updateEpicStatus(getEpic(epicID));
         }
+
     }
 
     public void updateEpic(Epic epic) {
         Integer inputEpic = epic.getId();
-        for (Integer ep : epics.keySet()) {
-            if (ep.equals(inputEpic)) {
-                epics.put(inputEpic, epic);
-                //добавляем статус
-                updateEpicStatus(epic);
-            }
+
+        if (epics.keySet().contains(inputEpic)) {
+            epics.put(inputEpic, epic);
+            //добавляем статус
+            updateEpicStatus(epic);
         }
+
     }
 
     //Удаление по идентификатору.
     public void removeTask(Integer taskId) {
-        for (Integer task : tasks.keySet()) {
-            if (task.equals(taskId)) {
-                tasks.remove(task);
-                break;
-            }
-        }
+        tasks.remove(taskId);
     }
 
     public void removeSubtask(Integer subtaskId) {
         Integer epicNum = 0;
-        for (Integer subtask : subtasks.keySet()) {
-            if (subtask.equals(subtaskId)) {
-                epicNum = subtasks.get(subtask).getEpicID();
-                //удалить из эпика id удаленного сабтаска
-                getEpic(epicNum).getSubTaskIds().remove(subtaskId);
-                //обновление статуса соответсвующего эпика
-                updateEpicStatus(getEpic(epicNum));
-                subtasks.remove(subtask);
-                break;
-            }
+
+        if (subtasks.containsKey(subtaskId)) {
+            epicNum = subtasks.get(subtaskId).getEpicID();
+            //удалить из эпика id удаленного сабтаска
+            getEpic(epicNum).getSubTaskIds().remove(subtaskId);
+            //обновление статуса соответсвующего эпика
+            updateEpicStatus(getEpic(epicNum));
+            subtasks.remove(subtaskId);
         }
     }
 
     public void removeEpic(Integer epicId) {
-        for (Integer epic : epics.keySet()) {
-            if (epic.equals(epicId)) {
-                //удалить все сабтаски удаленного эпика
-                for (Integer sub : getEpic(epicId).getSubTaskIds()) {
-                    subtasks.remove(sub);
-                }
-                //удалить эпик
-                epics.remove(epic);
-                break;
+        if (epics.containsKey(epicId)) {
+            //удалить все сабтаски удаленного эпика
+            for (Integer sub : getEpic(epicId).getSubTaskIds()) {
+                subtasks.remove(sub);
             }
+            //удалить эпик
+            epics.remove(epicId);
         }
-
     }
+
+
 }
