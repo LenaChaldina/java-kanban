@@ -130,6 +130,14 @@ public class TaskManagerService {
 
     public void removeSubtasks() {
         subtasks.clear();
+        //обнуляем у всех эпиков список сабтасков
+        for (Epic epic : epics.values()) {
+            epic.getSubTaskIds().clear();
+        }
+        //после удаления всех сабтасков все статусы эпиков должны стать NEW
+        for(Epic epic: epics.values()) {
+            epic.setStatus(Status.NEW);
+        }
     }
 
     public void removeEpics() {
