@@ -2,7 +2,6 @@ package tz3.task;
 
 import tz3.constants.Status;
 
-
 public class Task {
     protected Integer id;
     protected String name;
