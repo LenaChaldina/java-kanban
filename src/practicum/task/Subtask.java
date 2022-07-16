@@ -1,6 +1,6 @@
-package tz3.task;
+package practicum.task;
 
-import tz3.constants.Status;
+import practicum.constants.Status;
 
 public class Subtask extends Task {
     private int epicID;

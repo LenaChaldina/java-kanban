@@ -1,4 +1,4 @@
-package tz3.task;
+package practicum.task;
 
 import java.util.ArrayList;
 

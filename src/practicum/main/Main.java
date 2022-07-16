@@ -1,13 +1,13 @@
-package tz3.main;
+package practicum.main;
 
-import tz3.constants.Status;
-import tz3.service.HistoryManagerService;
-import tz3.service.PrintConsoleService;
-import tz3.service.TaskManagerService;
-import tz3.task.Epic;
-import tz3.task.Subtask;
-import tz3.task.Task;
-import tz3.utility.Managers;
+import practicum.constants.Status;
+import practicum.service.HistoryManagerService;
+import practicum.service.PrintConsoleService;
+import practicum.service.TaskManagerService;
+import practicum.task.Epic;
+import practicum.task.Subtask;
+import practicum.task.Task;
+import practicum.utility.Managers;
 
 public class Main {
     public static void main(String[] args) {
@@ -58,8 +58,6 @@ public class Main {
         inMemoryTaskManager.getSubtask(4);
         inMemoryTaskManager.getSubtask(5);
         inMemoryTaskManager.getSubtask(12);
-
-        inMemoryHistoryManager.getTasksHistory();
 
         printConsoleService.printTasksHistory(inMemoryHistoryManager);
     }

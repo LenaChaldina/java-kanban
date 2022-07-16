@@ -1,9 +1,9 @@
-package tz3.utility;
+package practicum.utility;
 
-import tz3.service.HistoryManagerService;
-import tz3.service.InMemoryHistoryManager;
-import tz3.service.InMemoryTaskManager;
-import tz3.service.TaskManagerService;
+import practicum.service.HistoryManagerService;
+import practicum.service.InMemoryHistoryManager;
+import practicum.service.InMemoryTaskManager;
+import practicum.service.TaskManagerService;
 
 public class Managers {
     static InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();

@@ -1,13 +1,13 @@
-package tz3.service;
+package practicum.service;
 
-import tz3.task.Task;
+import practicum.task.Task;
 
-import java.util.List;
+import java.util.LinkedList;
 
 public interface HistoryManagerService {
-    List<Task> getTasksHistory();
+    LinkedList<Task> getTasksHistory();
 
     //пометить задачи как просмотренные
     //если задачка "просмотрена" буду потом ее в отдельный список перекладывать
-    void add(Task task);
+    void addTask(Task task);
 }

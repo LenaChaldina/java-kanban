@@ -1,8 +1,8 @@
-package tz3.service;
+package practicum.service;
 
-import tz3.task.Epic;
-import tz3.task.Subtask;
-import tz3.task.Task;
+import practicum.task.Epic;
+import practicum.task.Subtask;
+import practicum.task.Task;
 
 import java.util.HashMap;
 import java.util.ArrayList;

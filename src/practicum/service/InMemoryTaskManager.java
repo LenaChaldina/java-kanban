@@ -1,9 +1,9 @@
-package tz3.service;
+package practicum.service;
 
-import tz3.constants.Status;
-import tz3.task.Epic;
-import tz3.task.Subtask;
-import tz3.task.Task;
+import practicum.constants.Status;
+import practicum.task.Epic;
+import practicum.task.Subtask;
+import practicum.task.Task;
 
 import java.util.HashMap;
 import java.util.ArrayList;
@@ -13,9 +13,7 @@ public class InMemoryTaskManager implements TaskManagerService {
     private HashMap<Integer, Subtask> subtasks = new HashMap<>();
     private HashMap<Integer, Epic> epics = new HashMap<>();
     private int generator = 0;
-    InMemoryHistoryManager inMemoryHistoryManager;
-    static final int HISTORY_LENGTH = 10;
-    static final int REPLACEABLE_ELEMENT = 0;
+    private InMemoryHistoryManager inMemoryHistoryManager;
 
     public InMemoryTaskManager(InMemoryHistoryManager inMemoryHistoryManager) {
         this.inMemoryHistoryManager = inMemoryHistoryManager;
@@ -171,13 +169,7 @@ public class InMemoryTaskManager implements TaskManagerService {
         if (tasks.keySet().contains(taskId)) {
             tmpTask = tasks.get(taskId);
             //история просмотренных тасков
-            if (inMemoryHistoryManager.getTasksHistory().size() >= HISTORY_LENGTH) {
-                //Если размер списка исчерпан, из него нужно удалить самый старый элемент — тот который находится в начале списка.
-                inMemoryHistoryManager.getTasksHistory().remove(REPLACEABLE_ELEMENT);
-                inMemoryHistoryManager.getTasksHistory().add(tmpTask);
-            } else {
-                inMemoryHistoryManager.getTasksHistory().add(tmpTask);
-            }
+            inMemoryHistoryManager.addTask(tmpTask);
         }
         return tmpTask;
     }
@@ -188,13 +180,7 @@ public class InMemoryTaskManager implements TaskManagerService {
         if (subtasks.keySet().contains(subtaskId)) {
             tmpSubtask = subtasks.get(subtaskId);
             //история просмотренных сабтасков
-            if (inMemoryHistoryManager.getTasksHistory().size() >= HISTORY_LENGTH) {
-                //Если размер списка исчерпан, из него нужно удалить самый старый элемент — тот который находится в начале списка.
-                inMemoryHistoryManager.getTasksHistory().remove(REPLACEABLE_ELEMENT);
-                inMemoryHistoryManager.getTasksHistory().add(tmpSubtask);
-            } else {
-                inMemoryHistoryManager.getTasksHistory().add(tmpSubtask);
-            }
+            inMemoryHistoryManager.addTask(tmpSubtask);
         }
         return tmpSubtask;
     }
@@ -205,13 +191,7 @@ public class InMemoryTaskManager implements TaskManagerService {
         if (epics.keySet().contains(epicId)) {
             tmpEpic = epics.get(epicId);
             //история просмотренных эпиков
-            if (inMemoryHistoryManager.getTasksHistory().size() >= HISTORY_LENGTH) {
-                //Если размер списка исчерпан, из него нужно удалить самый старый элемент — тот который находится в начале списка.
-                inMemoryHistoryManager.getTasksHistory().remove(REPLACEABLE_ELEMENT);
-                inMemoryHistoryManager.getTasksHistory().add(tmpEpic);
-            } else {
-                inMemoryHistoryManager.getTasksHistory().add(tmpEpic);
-            }
+            inMemoryHistoryManager.addTask(tmpEpic);
         }
         return tmpEpic;
     }
