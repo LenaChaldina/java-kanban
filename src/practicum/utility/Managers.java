@@ -6,15 +6,13 @@ import practicum.service.InMemoryTaskManager;
 import practicum.service.TaskManagerService;
 
 public class Managers {
-    static InMemoryHistoryManager inMemoryHistoryManager = new InMemoryHistoryManager();
-    static InMemoryTaskManager inMemoryTaskManager = new InMemoryTaskManager(inMemoryHistoryManager);
-
-    public static TaskManagerService getDefault() {
-        return inMemoryTaskManager;
+    private Managers(){}
+    public static HistoryManagerService getInMemoryHistoryManager() {
+        return new InMemoryHistoryManager();
     }
 
-    public static HistoryManagerService getDefaultHistory() {
-        return inMemoryHistoryManager;
+    public static TaskManagerService getInMemoryTaskManager() {
+        return new InMemoryTaskManager(getInMemoryHistoryManager());
     }
 
 }

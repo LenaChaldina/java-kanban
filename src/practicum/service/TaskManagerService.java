@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 public interface TaskManagerService {
+    HistoryManagerService getInMemoryHistoryManager();
+
     HashMap<Integer, Task> getResultTasks();
 
     HashMap<Integer, Subtask> getResultSubtasks();

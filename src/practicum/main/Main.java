@@ -7,15 +7,14 @@ import practicum.service.TaskManagerService;
 import practicum.task.Epic;
 import practicum.task.Subtask;
 import practicum.task.Task;
-import practicum.utility.Managers;
+
+import static practicum.utility.Managers.getInMemoryTaskManager;
 
 public class Main {
     public static void main(String[] args) {
 
-        Managers manager = new Managers();
-
-        TaskManagerService inMemoryTaskManager = manager.getDefault();
-        HistoryManagerService inMemoryHistoryManager = manager.getDefaultHistory();
+        TaskManagerService inMemoryTaskManager = getInMemoryTaskManager();
+        HistoryManagerService inMemoryHistoryManager = inMemoryTaskManager.getInMemoryHistoryManager();
 
         Task task = new Task("Посещение бассейна", "Позаниматься плаванием перед работой", Status.NEW);
         Task task2 = new Task("Выбор платья", "Подобрать красивый наряд для ужина", Status.IN_PROGRESS);
