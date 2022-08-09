@@ -3,7 +3,7 @@ package practicum.task;
 import java.util.ArrayList;
 
 public class Epic extends Task {
-    private ArrayList<Integer> subTaskIds = new ArrayList<>();
+    private final ArrayList<Integer> subTaskIds = new ArrayList<>();
 
     public Epic(String name, String description) {
         super(name, description);

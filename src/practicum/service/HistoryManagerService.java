@@ -2,10 +2,11 @@ package practicum.service;
 
 import practicum.task.Task;
 
-import java.util.LinkedList;
+import java.util.List;
 
-public interface HistoryManagerService {
-    LinkedList<Task> getTasksHistory();
+public interface HistoryManagerService{
+    List<Task> getTasksHistory();
 
     void addTask(Task task);
+    void removeTask(int id);
 }

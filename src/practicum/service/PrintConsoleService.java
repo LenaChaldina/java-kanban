@@ -27,7 +27,7 @@ public class PrintConsoleService {
     }
 
     public void printTasksHistory(HistoryManagerService historyManager) {
-        System.out.println("Список из последних 10-и просмотренных задач : ");
+        System.out.println("Список из просмотренных задач : ");
         for (Task task : historyManager.getTasksHistory()) {
             System.out.println(task);
         }

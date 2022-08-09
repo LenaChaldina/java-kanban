@@ -13,6 +13,12 @@ import static practicum.utility.Managers.getInMemoryTaskManager;
 public class Main {
     public static void main(String[] args) {
 
+        //test создайте две задачи, эпик с тремя подзадачами и эпик без подзадач;
+        testCustomLinkedList();
+    }
+
+    private static void testCustomLinkedList() {
+
         TaskManagerService inMemoryTaskManager = getInMemoryTaskManager();
         HistoryManagerService inMemoryHistoryManager = inMemoryTaskManager.getInMemoryHistoryManager();
 
@@ -38,7 +44,6 @@ public class Main {
 
         PrintConsoleService printConsoleService = new PrintConsoleService();
 
-        ///тестинг
         System.out.println("Первоначальное заполнение: ");
 
         printConsoleService.printTasks(inMemoryTaskManager);
@@ -47,6 +52,7 @@ public class Main {
 
         inMemoryTaskManager.getTask(0);
         inMemoryTaskManager.getTask(1);
+
         inMemoryTaskManager.getEpic(2);
         inMemoryTaskManager.getEpic(3);
         inMemoryTaskManager.getSubtask(4);
@@ -58,6 +64,13 @@ public class Main {
         inMemoryTaskManager.getSubtask(5);
         inMemoryTaskManager.getSubtask(12);
 
+        inMemoryTaskManager.removeSubtask(4);
+        inMemoryTaskManager.removeEpic(2);
+        inMemoryTaskManager.removeTask(1);
+        inMemoryTaskManager.removeTask(0);
+        inMemoryTaskManager.removeTask(12);
+
         printConsoleService.printTasksHistory(inMemoryHistoryManager);
     }
 }
+

@@ -3,7 +3,7 @@ package practicum.task;
 import practicum.constants.Status;
 
 public class Subtask extends Task {
-    private int epicID;
+    private final int epicID;
 
     public Subtask(String name, String description, Status status, int epicID) {
         super(name, description, status);
