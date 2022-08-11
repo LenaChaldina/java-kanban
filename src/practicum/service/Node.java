@@ -1,13 +1,11 @@
 package practicum.service;
 
-public class Node<K, E> {
-    public K key;
+public class Node<E> {
     public E data;
     Node prev;
     Node next;
 
-    public Node(K key, E data, Node prev, Node next) {
-        this.key = key;
+    public Node (E data, Node prev, Node next) {
         this.data = data;
         this.prev = prev;
         this.next = next;

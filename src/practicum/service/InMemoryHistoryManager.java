@@ -7,9 +7,8 @@ import java.util.Map;
 import java.util.ArrayList;
 
 public class InMemoryHistoryManager implements HistoryManagerService {
-    //будет заполняться по мере добавления новых задач
     private final Map<Integer, Node> nodes = new HashMap<>();
-    private CustomLinkedList<Integer, Task> customLinkedList = new CustomLinkedList();
+    private CustomLinkedList<Task> customLinkedList = new CustomLinkedList();
 
     @Override
     public ArrayList<Task> getTasksHistory() {
@@ -21,7 +20,7 @@ public class InMemoryHistoryManager implements HistoryManagerService {
         Node nodeForRemove = nodes.get(task.getId());
 
         customLinkedList.removeNode(nodeForRemove);
-        customLinkedList.linkTail(task.getId(), task);
+        customLinkedList.linkTail(task);
     }
 
     @Override
@@ -30,26 +29,27 @@ public class InMemoryHistoryManager implements HistoryManagerService {
         customLinkedList.removeNode(nodeForRemove);
     }
 
-    private class CustomLinkedList<K extends Integer, T> {
-        private Node<K, T> head;
-        private Node<K, T> tail;
+    private class CustomLinkedList<T extends Task> {
+        private Node<T> head;
+        private Node<T> tail;
 
         //добавляет задачу в конец списка
-        private void linkTail(K key, T element) {
-            final Node<K, T> newNode = new Node<>(key, element, tail, null);
+        private void linkTail(T element) {
+            final Node<T> newNode = new Node<>(element, tail, null);
 
             if (head == null) {
                 head = newNode;
             } else {
                 tail.next = newNode;
             }
+
             tail = newNode;
-            nodes.put(key, newNode);
+            nodes.put(element.getId(), newNode);
         }
 
-        private void removeNode(Node<K, T> node) {
+        private void removeNode(Node<T> node) {
             if (node != null) {
-                nodes.remove(node.key);
+                nodes.remove(node);
                 if (head == tail) { //если список из одного элемента
                     head = null;
                     tail = null;
@@ -72,7 +72,7 @@ public class InMemoryHistoryManager implements HistoryManagerService {
         private ArrayList<T> getTasks() {
             ArrayList<T> tasks = new ArrayList<>();
 
-            for (Node<K, T> i = head; i != null; i = i.next) {
+            for (Node<T> i = head; i != null; i = i.next) {
                 tasks.add(i.data);
             }
             return tasks;
