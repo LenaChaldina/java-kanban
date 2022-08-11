@@ -1,6 +1,6 @@
 package practicum.service;
 
-public class Node<E, K> {
+public class Node<K, E> {
     public K key;
     public E data;
     Node prev;

@@ -54,14 +54,14 @@ public class Main {
         inMemoryTaskManager.getTask(1);
 
         inMemoryTaskManager.getEpic(2);
-        inMemoryTaskManager.getEpic(3);
+        //inMemoryTaskManager.getEpic(3);
         inMemoryTaskManager.getSubtask(4);
-        inMemoryTaskManager.getSubtask(5);
-        inMemoryTaskManager.getSubtask(6);
+        //inMemoryTaskManager.getSubtask(5);
+        //inMemoryTaskManager.getSubtask(6);
         inMemoryTaskManager.getEpic(2);
-        inMemoryTaskManager.getEpic(3);
+        //inMemoryTaskManager.getEpic(3);
         inMemoryTaskManager.getSubtask(4);
-        inMemoryTaskManager.getSubtask(5);
+        //inMemoryTaskManager.getSubtask(5);
         inMemoryTaskManager.getSubtask(12);
 
         inMemoryTaskManager.removeSubtask(4);
