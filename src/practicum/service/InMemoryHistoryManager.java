@@ -7,29 +7,33 @@ import java.util.Map;
 import java.util.ArrayList;
 
 public class InMemoryHistoryManager implements HistoryManagerService {
-    private final Map<Integer, Node> nodes = new HashMap<>();
-    private CustomLinkedList<Task> customLinkedList = new CustomLinkedList();
+    private final Map<Integer, Node> nodesMap = new HashMap<>();
+    private CustomLinkedList<Task> taskList = new CustomLinkedList();
 
     @Override
     public ArrayList<Task> getTasksHistory() {
-        return customLinkedList.getTasks();
+        return taskList.getTasks();
     }
 
     @Override
     public void addTask(Task task) {
-        Node nodeForRemove = nodes.get(task.getId());
+        Node nodeForRemove = nodesMap.get(task.getId());
 
-        customLinkedList.removeNode(nodeForRemove);
-        customLinkedList.linkTail(task);
+        taskList.removeNode(nodeForRemove);
+        taskList.linkTail(task);
+        nodesMap.put(task.getId(), taskList.tail);
     }
 
     @Override
     public void removeTask(int id) {
-        Node nodeForRemove = nodes.get(id);
-        customLinkedList.removeNode(nodeForRemove);
+        Node nodeForRemove = nodesMap.get(id);
+
+        taskList.removeNode(nodeForRemove);
+        nodesMap.remove(nodeForRemove);
+
     }
 
-    private class CustomLinkedList<T extends Task> {
+    private class CustomLinkedList<T> {
         private Node<T> head;
         private Node<T> tail;
 
@@ -44,12 +48,10 @@ public class InMemoryHistoryManager implements HistoryManagerService {
             }
 
             tail = newNode;
-            nodes.put(element.getId(), newNode);
         }
 
         private void removeNode(Node<T> node) {
             if (node != null) {
-                nodes.remove(node);
                 if (head == tail) { //если список из одного элемента
                     head = null;
                     tail = null;
