@@ -1,5 +1,7 @@
 package practicum.task;
 
+import practicum.constants.TypeTasks;
+
 import java.util.ArrayList;
 
 public class Epic extends Task {
@@ -27,6 +29,11 @@ public class Epic extends Task {
 
     public void addSubTask(int subTaskId) {
         subTaskIds.add(subTaskId);
+    }
+
+    @Override
+    public TypeTasks getTaskType() {
+        return TypeTasks.EPIC;
     }
 
     public ArrayList<Integer> getSubTaskIds() {

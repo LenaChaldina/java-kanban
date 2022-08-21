@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 public class InMemoryTaskManager implements TaskManagerService {
-    private final HashMap<Integer, Task> tasks = new HashMap<>();
-    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    private final HashMap<Integer, Epic> epics = new HashMap<>();
+    protected final HashMap<Integer, Task> tasks = new HashMap<>();
+    protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    protected final HashMap<Integer, Epic> epics = new HashMap<>();
     private int generator = 0;
-    private final HistoryManagerService inMemoryHistoryManager;
+    protected final HistoryManagerService inMemoryHistoryManager;
 
     public InMemoryTaskManager(HistoryManagerService inMemoryHistoryManager) {
         this.inMemoryHistoryManager = inMemoryHistoryManager;

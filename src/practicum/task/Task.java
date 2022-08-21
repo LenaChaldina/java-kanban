@@ -1,12 +1,14 @@
 package practicum.task;
 
 import practicum.constants.Status;
+import practicum.constants.TypeTasks;
 
 public class Task {
     protected Integer id;
     protected String name;
     protected String description;
     protected Status status;
+
 
     //для сабтаска - статус вводит пользователь
     public Task(String name, String description, Status status) {
@@ -48,19 +50,31 @@ public class Task {
         return status;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     public void setStatus(Status status) {
         this.status = status;
     }
 
+    public TypeTasks getTaskType() {
+       return TypeTasks.TASK;
+    }
+
+
+
     @Override
     public String toString() {
-        return "tz3.task.Task{" +
+        return "Task{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", status=" + status +
                 '}';
     }
-
-
 }

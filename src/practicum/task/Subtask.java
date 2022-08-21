@@ -1,8 +1,9 @@
 package practicum.task;
 
 import practicum.constants.Status;
+import practicum.constants.TypeTasks;
 
-public class Subtask extends Task {
+public  class Subtask extends Task {
     private final int epicID;
 
     public Subtask(String name, String description, Status status, int epicID) {
@@ -16,8 +17,14 @@ public class Subtask extends Task {
         this.epicID = epicID;
     }
 
+
     public int getEpicID() {
         return epicID;
+    }
+
+    @Override
+    public TypeTasks getTaskType() {
+        return TypeTasks.SUBTASK;
     }
 
     @Override
