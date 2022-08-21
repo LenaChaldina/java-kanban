@@ -151,8 +151,8 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
                     }
                 }
                 if (line.isBlank()) {
-                    String line1 = bufferedReader.readLine();
-                    List<Integer> history = historyFromString(line1);
+                    String historyLine = bufferedReader.readLine();
+                    List<Integer> history = historyFromString(historyLine);
                     for (Integer hist : history) {
                         inMemoryTaskManager.getTask(hist);
                     }
