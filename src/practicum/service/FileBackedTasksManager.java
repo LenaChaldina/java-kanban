@@ -1,6 +1,6 @@
 package practicum.service;
 
-import practicum.constants.Status;
+import practicum.constants.TaskType;
 import practicum.exceptions.ManagerSaveException;
 import practicum.task.Epic;
 import practicum.task.Subtask;
@@ -11,6 +11,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
+import static practicum.task.Epic.fromStringForEpic;
+import static practicum.task.Subtask.fromStringForSubtask;
+import static practicum.task.Task.fromStringForTask;
 
 //вторая реализация менеджера = хранит информацию в файле
 public class FileBackedTasksManager extends InMemoryTaskManager implements TaskManagerService {
@@ -50,65 +54,19 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
 
     private <T extends Task> void addTasksOrEpicsToFile(BufferedWriter bufferedWriter, Collection<T> tasks) throws IOException {
         for (Task value : tasks) {
-            bufferedWriter.write(toStringForTasksOrEpics(value));
+            bufferedWriter.write(value.toString());
             bufferedWriter.newLine();
         }
     }
 
     private void addSubtasksToFile(BufferedWriter bufferedWriter, Collection<Subtask> subtasks) throws IOException {
         for (Subtask value : subtasks) {
-            bufferedWriter.write(toStringForSubtask(value));
+            bufferedWriter.write(value.toString());
             bufferedWriter.newLine();
         }
     }
 
-    //Напишите метод сохранения задачи в строку String toString(Task task) или переопределите базовый.
-    public <T extends Task> String toStringForTasksOrEpics(T task) {
-        return task.getId() + "," + task.getTaskType() + "," + task.getName() + "," + task.getStatus() + ","
-                + task.getDescription() + ",";
-    }
-
-    public String toStringForSubtask(Subtask subtask) {
-        return subtask.getId() + "," + subtask.getTaskType() + "," + subtask.getName() + "," + subtask.getStatus() + ","
-                + subtask.getDescription() + "," + subtask.getEpicID();
-    }
-
-    // Напишите метод создания задачи из строки Task fromString(String value)
-    // раскидать задачки по полям
-    public static Task fromStringForTasks(String value) {
-        String[] tasksFromFile = value.split(",");
-        Integer id = Integer.valueOf(tasksFromFile[0]);
-        String name = tasksFromFile[2];
-        String description = tasksFromFile[4];
-        Status status = Status.valueOf(tasksFromFile[3]);
-
-        Task task = new Task(id, name, description, status);
-        return task;
-    }
-
-    public static Epic fromStringForEpics(String value) {
-        String[] epicsFromFile = value.split(",");
-        Integer id = Integer.valueOf(epicsFromFile[0]);
-        String name = epicsFromFile[2];
-        String description = epicsFromFile[4];
-
-        Epic epic = new Epic(id, name, description);
-        return epic;
-    }
-
-    public static Subtask fromStringForSubtasks(String value) {
-        String[] subtasksFromFile = value.split(",");
-        Integer id = Integer.valueOf(subtasksFromFile[0]);
-        String name = subtasksFromFile[2];
-        String description = subtasksFromFile[4];
-        Status status = Status.valueOf(subtasksFromFile[3]);
-        Integer epicID = Integer.valueOf(subtasksFromFile[5]);
-
-        Subtask subtask = new Subtask(id, name, description, status, epicID);
-        return subtask;
-    }
-
-    // cохранение менеджера истории
+    // сохранение менеджера истории
     static String historyToString(HistoryManagerService historyManager) {
         StringBuilder tasks = new StringBuilder();
         for (Task task : historyManager.getTasksHistory()) {
@@ -138,23 +96,27 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
             while (bufferedReader.ready()) {
                 String line = bufferedReader.readLine();
 
-                if (!line.startsWith("id")) {
-                    if (line.contains(",TASK")) {
-                        Task task = fromStringForTasks(line);
-                        inMemoryTaskManager.addTask(task);
-                    } else if (line.contains("EPIC")) {
-                        Epic epic = fromStringForEpics(line);
-                        inMemoryTaskManager.addEpic(epic);
-                    } else if (line.contains("SUBTASK")) {
-                        Subtask subtask = fromStringForSubtasks(line);
-                        inMemoryTaskManager.addSubtask(subtask);
-                    }
-                }
-                if (line.isBlank()) {
-                    String historyLine = bufferedReader.readLine();
-                    List<Integer> history = historyFromString(historyLine);
-                    for (Integer hist : history) {
-                        inMemoryTaskManager.getTask(hist);
+                if (!line.startsWith("id") && line != null) {
+                    switch (TaskType.fromString(line)) {
+                        case TASK:
+                            Task task = fromStringForTask(line);
+                            inMemoryTaskManager.addTask(task);
+                            break;
+                        case EPIC:
+                            Epic epic = fromStringForEpic(line);
+                            inMemoryTaskManager.addEpic(epic);
+                            break;
+                        case SUBTASK:
+                            Subtask subtask = fromStringForSubtask(line);
+                            inMemoryTaskManager.addSubtask(subtask);
+                            break;
+                        default:
+                            String historyLine = bufferedReader.readLine();
+                            List<Integer> history = historyFromString(historyLine);
+                            for (Integer hist : history) {
+                                inMemoryTaskManager.getTask(hist);
+                            }
+                            break;
                     }
                 }
             }
@@ -212,8 +174,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
         super.updateTask(task);
         save();
     }
-
-    ;
 
     @Override
     public void updateSubtask(Subtask subtask) {

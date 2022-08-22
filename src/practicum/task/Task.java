@@ -1,7 +1,7 @@
 package practicum.task;
 
 import practicum.constants.Status;
-import practicum.constants.TypeTasks;
+import practicum.constants.TaskType;
 
 public class Task {
     protected Integer id;
@@ -62,19 +62,23 @@ public class Task {
         this.status = status;
     }
 
-    public TypeTasks getTaskType() {
-       return TypeTasks.TASK;
+    public TaskType getTaskType() {
+        return TaskType.TASK;
     }
-
-
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                '}';
+        return id + "," + getTaskType() + "," + name + "," + status + "," + description + ",";
+    }
+
+    public static Task fromStringForTask(String value) {
+        String[] tasksFromFile = value.split(",");
+        Integer id = Integer.valueOf(tasksFromFile[0]);
+        String name = tasksFromFile[2];
+        String description = tasksFromFile[4];
+        Status status = Status.valueOf(tasksFromFile[3]);
+
+        Task task = new Task(id, name, description, status);
+        return task;
     }
 }

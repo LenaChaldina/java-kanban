@@ -1,9 +1,9 @@
 package practicum.task;
 
 import practicum.constants.Status;
-import practicum.constants.TypeTasks;
+import practicum.constants.TaskType;
 
-public  class Subtask extends Task {
+public class Subtask extends Task {
     private final int epicID;
 
     public Subtask(String name, String description, Status status, int epicID) {
@@ -17,26 +17,30 @@ public  class Subtask extends Task {
         this.epicID = epicID;
     }
 
-
     public int getEpicID() {
         return epicID;
     }
 
     @Override
-    public TypeTasks getTaskType() {
-        return TypeTasks.SUBTASK;
+    public TaskType getTaskType() {
+        return TaskType.SUBTASK;
     }
 
     @Override
     public String toString() {
-        return "tz3.task.Subtask{" +
-                "epicID=" + epicID +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                '}';
+        return super.toString() + epicID;
     }
 
+    public static Subtask fromStringForSubtask(String value) {
+        String[] subtasksFromFile = value.split(",");
+        Integer id = Integer.valueOf(subtasksFromFile[0]);
+        String name = subtasksFromFile[2];
+        String description = subtasksFromFile[4];
+        Status status = Status.valueOf(subtasksFromFile[3]);
+        Integer epicID = Integer.valueOf(subtasksFromFile[5]);
+
+        Subtask subtask = new Subtask(id, name, description, status, epicID);
+        return subtask;
+    }
 
 }

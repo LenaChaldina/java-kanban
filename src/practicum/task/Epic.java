@@ -1,6 +1,6 @@
 package practicum.task;
 
-import practicum.constants.TypeTasks;
+import practicum.constants.TaskType;
 
 import java.util.ArrayList;
 
@@ -18,13 +18,7 @@ public class Epic extends Task {
 
     @Override
     public String toString() {
-        return "tz3.task.Epic{" +
-                "subTaskIds=" + subTaskIds +
-                ", id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status=" + status +
-                '}';
+        return super.toString();
     }
 
     public void addSubTask(int subTaskId) {
@@ -32,11 +26,21 @@ public class Epic extends Task {
     }
 
     @Override
-    public TypeTasks getTaskType() {
-        return TypeTasks.EPIC;
+    public TaskType getTaskType() {
+        return TaskType.EPIC;
     }
 
     public ArrayList<Integer> getSubTaskIds() {
         return subTaskIds;
+    }
+
+    public static Epic fromStringForEpic(String value) {
+        String[] epicsFromFile = value.split(",");
+        Integer id = Integer.valueOf(epicsFromFile[0]);
+        String name = epicsFromFile[2];
+        String description = epicsFromFile[4];
+
+        Epic epic = new Epic(id, name, description);
+        return epic;
     }
 }
