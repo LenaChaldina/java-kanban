@@ -31,7 +31,7 @@ public class Subtask extends Task {
         return super.toString() + epicID;
     }
 
-    public static Subtask fromStringForSubtask(String value) {
+    public static Subtask fromString(String value) {
         String[] subtasksFromFile = value.split(",");
         Integer id = Integer.valueOf(subtasksFromFile[0]);
         String name = subtasksFromFile[2];

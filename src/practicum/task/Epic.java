@@ -34,7 +34,7 @@ public class Epic extends Task {
         return subTaskIds;
     }
 
-    public static Epic fromStringForEpic(String value) {
+    public static Epic fromString(String value) {
         String[] epicsFromFile = value.split(",");
         Integer id = Integer.valueOf(epicsFromFile[0]);
         String name = epicsFromFile[2];

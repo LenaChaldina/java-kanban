@@ -71,7 +71,7 @@ public class Task {
         return id + "," + getTaskType() + "," + name + "," + status + "," + description + ",";
     }
 
-    public static Task fromStringForTask(String value) {
+    public static Task fromString(String value) {
         String[] tasksFromFile = value.split(",");
         Integer id = Integer.valueOf(tasksFromFile[0]);
         String name = tasksFromFile[2];
