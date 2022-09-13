@@ -32,4 +32,11 @@ public class PrintConsoleService {
             System.out.println(task);
         }
     }
+
+    public void printPriority(TaskManagerService taskManagerService) {
+        System.out.println("Отсортированные таски и сабтаски : ");
+        for (Task task : taskManagerService.getPrioritizedTasks()) {
+            System.out.println(task);
+        }
+    }
 }

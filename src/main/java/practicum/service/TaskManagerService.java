@@ -6,6 +6,7 @@ import practicum.task.Task;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Set;
 
 public interface TaskManagerService {
     HistoryManagerService getInMemoryHistoryManager();
@@ -55,4 +56,8 @@ public interface TaskManagerService {
     void removeSubtask(Integer subtaskId);
 
     void removeEpic(Integer epicId);
+
+    void updateEpicDuration(Epic epic);
+    Set<Task> getPrioritizedTasks();
+    boolean getValidations(Task task);
 }

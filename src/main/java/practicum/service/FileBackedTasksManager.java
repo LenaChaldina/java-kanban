@@ -16,7 +16,7 @@ import java.util.List;
 import static practicum.utility.Managers.getInMemoryTaskManager;
 
 //вторая реализация менеджера = хранит информацию в файле
-public class FileBackedTasksManager extends InMemoryTaskManager implements TaskManagerService {
+public class FileBackedTasksManager extends InMemoryTaskManager {
     private static String fileName = "resources/tasks.csv";
 
     //Пусть новый менеджер получает файл для автосохранения в своём конструкторе и сохраняет его в поле.
@@ -36,8 +36,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
         FileBackedTasksManager fileBackedTasksManager = new FileBackedTasksManager(inMemoryHistoryManager, "resources/tasks.csv");
         PrintConsoleService printConsoleService = new PrintConsoleService();
 
-        Task task = new Task("Посещение бассейна", "Позаниматься плаванием перед работой", Status.NEW);
-        Task task2 = new Task("Выбор платья", "Подобрать красивый наряд для ужина", Status.IN_PROGRESS);
+
+        Task task = new Task("Посещение бассейна", "Позаниматься плаванием перед работой", Status.NEW, 60, "07:09:2022; 08:00");
+        Task task2 = new Task("Выбор платья", "Подобрать красивый наряд для ужина", Status.IN_PROGRESS, 30, "07:09:2022; 19:00");
+
 
         fileBackedTasksManager.addTask(task);
         fileBackedTasksManager.addTask(task2);
@@ -48,9 +50,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
         fileBackedTasksManager.addEpic(epic);
         fileBackedTasksManager.addEpic(epic2);
 
-        Subtask subtask = new Subtask("Завершить работу над 3-им спринтом", "Закончить теоретическую и практическую части", Status.NEW, epic.getId());
-        Subtask subtask2 = new Subtask("Влажная уборка", "Помыть пол и протереть пыль", Status.DONE, epic2.getId());
-        Subtask subtask3 = new Subtask("сухая уборка", "Пропылесосить и разложить вещи", Status.IN_PROGRESS, epic2.getId());
+
+        Subtask subtask  = new Subtask("Завершить работу над 7-им спринтом", "Закончить теоретическую и практическую части", Status.NEW, 6000, "10:09:2022; 08:00", epic.getId());
+        Subtask subtask2 = new Subtask("Влажная уборка", "Помыть пол и протереть пыль", Status.DONE, 80, "08:09:2022; 08:00", epic2.getId());
+        Subtask subtask3 = new Subtask("сухая уборка", "Пропылесосить и разложить вещи", Status.IN_PROGRESS, 40, "07:09:2022; 12:00", epic2.getId());
 
         fileBackedTasksManager.addSubtask(subtask);
         fileBackedTasksManager.addSubtask(subtask2);
@@ -69,7 +72,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
         fileBackedTasksManager.getSubtask(5);
         fileBackedTasksManager.getSubtask(12);
 
-        fileBackedTasksManager = fileBackedTasksManager.loadFromFile(inMemoryTaskManager, inMemoryHistoryManager, new File("resources/tasks.csv"));
+        loadFromFile(inMemoryTaskManager, inMemoryHistoryManager, new File("resources/tasks.csv"));
 
         printConsoleService.printTasks(inMemoryTaskManager);
         printConsoleService.printEpics(inMemoryTaskManager);
@@ -88,7 +91,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager implements TaskM
     //Создайте метод save без параметров — он будет сохранять текущее состояние менеджера в указанный файл
     public void save() {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName, StandardCharsets.UTF_8))) {
-            bufferedWriter.write("id,type,name,status,description,epic");
+            bufferedWriter.write("id,type,name,status,description,duration,startTime,epic");
             bufferedWriter.newLine();
 
             addTasksOrEpicsToFile(bufferedWriter, tasks.values());

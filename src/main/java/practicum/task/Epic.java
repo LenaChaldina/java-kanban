@@ -1,19 +1,32 @@
 package practicum.task;
 
+import practicum.constants.Status;
 import practicum.constants.TaskType;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Epic extends Task {
     private final ArrayList<Integer> subTaskIds = new ArrayList<>();
+    LocalDateTime endTime;
 
     public Epic(String name, String description) {
         super(name, description);
     }
 
+    //для тестинга
+    public Epic(String name, String description, Status status) {
+        super(name, description);
+        this.status = status;
+    }
+
     //для обновления данных
     public Epic(Integer id, String name, String description) {
         super(id, name, description);
+    }
+
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
     @Override
