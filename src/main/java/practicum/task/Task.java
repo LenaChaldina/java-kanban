@@ -126,16 +126,25 @@ public class Task {
 
     public static Task fromString(String value) {
         String[] tasksFromFile = value.split(",");
-        Integer duration = Integer.valueOf(tasksFromFile[5]);
-        String startTime = tasksFromFile[6];
+        if(!tasksFromFile[5].equals("null") || !tasksFromFile[6].equals("null") ) {
+            Integer duration = Integer.valueOf(tasksFromFile[5]);
+            String startTime = tasksFromFile[6];
+            Integer id = Integer.valueOf(tasksFromFile[0]);
+            String name = tasksFromFile[2];
+            String description = tasksFromFile[4];
+            Status status = Status.valueOf(tasksFromFile[3]);
+
+            Task task = new Task(id, name, description, status, duration, startTime);
+            return task;
+        } else {
         Integer id = Integer.valueOf(tasksFromFile[0]);
         String name = tasksFromFile[2];
         String description = tasksFromFile[4];
         Status status = Status.valueOf(tasksFromFile[3]);
 
 
-        Task task = new Task(id, name, description, status, duration, startTime);
-        return task;
+        Task task = new Task(id, name, description, status);
+        return task;}
     }
 
     @Override

@@ -8,24 +8,15 @@ import practicum.task.Task;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 public class InMemoryTaskManager implements TaskManagerService {
     protected final HashMap<Integer, Task> tasks = new HashMap<>();
     protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
     protected final HashMap<Integer, Epic> epics = new HashMap<>();
-    public Set<Task> taskAndSubtaskPriority = new TreeSet<>((o1, o2) -> {
-        if ((o1.getStartTime() == null) && (o2.getStartTime() != null)) {
-            return 1;
-        } else if ((o1.getStartTime() != null) && (o2.getStartTime() == null)) {
-            return -1;
-        } else if ((o1.getStartTime() == null) && (o2.getStartTime() == null)) {
-            return 0;
-        } else {
-            return o1.getStartTime().compareTo(o2.getStartTime());
-        }
-    });
-    public HashMap<Interval, Boolean> intervals = new HashMap<>();
+    protected Set<Task> taskAndSubtaskPriority = new TreeSet<>(new InMemoryComparator());
+    protected HashMap<Interval, Boolean> intervals = new HashMap<>();
     private int generator = 0;
     protected final HistoryManagerService inMemoryHistoryManager;
 
@@ -56,7 +47,7 @@ public class InMemoryTaskManager implements TaskManagerService {
     @Override
     public void addTask(Task task) {
         if (task != null) {
-            if (getValidations(task)) {
+            if (isValid(task)) {
                 int taskId = generator++;
                 task.setId(taskId);
                 taskAndSubtaskPriority.add(task);
@@ -78,7 +69,7 @@ public class InMemoryTaskManager implements TaskManagerService {
     @Override
     public void addSubtask(Subtask subtask) {
         if (subtask != null) {
-            if (getValidations(subtask)) {
+            if (isValid(subtask)) {
                 int epicId = subtask.getEpicID();
                 Epic epic = epics.get(epicId);
 
@@ -353,23 +344,24 @@ public class InMemoryTaskManager implements TaskManagerService {
         }
     }
 
-    public Set<Task> getPrioritizedTasks() {
-        return taskAndSubtaskPriority;
+    public List<Task> getPrioritizedTasks() {
+        List<Task> prioritizedTasks = taskAndSubtaskPriority.stream().collect(Collectors.toList());
+        return prioritizedTasks;
     }
 
-    public boolean getValidations(Task task) {
+    public boolean isValid(Task task) {
         // валидация не имеет смысла, если у задачи не введено время
-        if (task.getStartTime() != null) {
-            Interval interval = new Interval(task.getStartTime(), task.getEndTime());
-            if (intervals.containsKey(interval)) {
-                System.out.println("Есть пересечение по времени!");
-                return false;
-            } else {
-                Set<Interval> intervalsGrid = interval.getIntervals();
-                for (Interval intervalGrid : intervalsGrid) {
-                    intervals.put(intervalGrid, true);
-                }
-                return true;
+        if (task.getStartTime() == null) {
+            return true;
+        }
+        Interval interval = new Interval(task.getStartTime(), task.getEndTime());
+        if (intervals.containsKey(interval)) {
+            System.out.println("Есть пересечение по времени!");
+            return false;
+        } else {
+            Set<Interval> intervalsGrid = interval.getIntervals();
+            for (Interval intervalGrid : intervalsGrid) {
+                intervals.put(intervalGrid, true);
             }
         }
         return true;

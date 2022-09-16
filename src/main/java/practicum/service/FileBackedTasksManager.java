@@ -37,7 +37,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         PrintConsoleService printConsoleService = new PrintConsoleService();
 
 
-        Task task = new Task("Посещение бассейна", "Позаниматься плаванием перед работой", Status.NEW, 60, "07:09:2022; 08:00");
+        Task task = new Task("Посещение бассейна", "Позаниматься плаванием перед работой", Status.NEW);
         Task task2 = new Task("Выбор платья", "Подобрать красивый наряд для ужина", Status.IN_PROGRESS, 30, "07:09:2022; 19:00");
 
 
