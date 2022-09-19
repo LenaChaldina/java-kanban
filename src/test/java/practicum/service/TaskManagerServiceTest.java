@@ -288,7 +288,7 @@ public abstract class TaskManagerServiceTest<T extends TaskManagerService> {
     }
 
     @Test
-    public void getValidations() {
+    public void isValid() {
         // валидация не имеет смысла, если у задачи не введено время
         task1 = new Task(0, "--", "--", Status.NEW);
         assertTrue(inMemoryTaskManager.isValid(task1));
