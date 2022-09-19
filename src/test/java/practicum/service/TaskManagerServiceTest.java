@@ -291,11 +291,11 @@ public abstract class TaskManagerServiceTest<T extends TaskManagerService> {
     public void getValidations() {
         // валидация не имеет смысла, если у задачи не введено время
         task1 = new Task(0, "--", "--", Status.NEW);
-        assertTrue(inMemoryTaskManager.getValidations(task1));
+        assertTrue(inMemoryTaskManager.isValid(task1));
         //если есть пересечения по времени
         task1 = new Task("--", "--", Status.NEW, 60, "07:09:2022; 08:01");
         task2 = new Task("--", "--", Status.IN_PROGRESS, 30, "07:09:2022; 08:10");
-        assertTrue(inMemoryTaskManager.getValidations(task1));
-        assertFalse(inMemoryTaskManager.getValidations(task2));
+        assertTrue(inMemoryTaskManager.isValid(task1));
+        assertFalse(inMemoryTaskManager.isValid(task2));
     }
 }

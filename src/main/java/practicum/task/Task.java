@@ -120,7 +120,8 @@ public class Task {
             return id + "," + getTaskType() + "," + name + "," + status + "," + description + "," +
                     duration.toMinutes() + "," + startTime.format(DateTimeFormatter.ofPattern("dd:MM:yyyy; HH:mm")) + ",";
         } else {
-            return id + "," + getTaskType() + "," + name + "," + status + "," + description + "," + duration + "," + startTime + ",";
+            return id + "," + getTaskType() + "," + name + "," + status + "," + description + "," + duration + "," +
+                    startTime + ",";
         }
     }
 
