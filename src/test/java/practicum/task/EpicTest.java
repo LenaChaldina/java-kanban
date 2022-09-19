@@ -29,19 +29,19 @@ class EpicTest {
     }
 
     @Test
-    public void shouldReturnStatusNewForEmptyListOfSubtask() {
+    public void should_return_status_wew_for_empty_list_of_subtask() {
         assertEquals(Status.NEW, epic.getStatus());
     }
 
     @Test
-    public void shouldReturnStatusNewForListOfSubtasksWitsStatusNew() {
+    public void should_return_status_new_for_list_of_subtasks_wits_statusNew() {
         inMemoryTaskManager.addSubtask(subtask1);
         inMemoryTaskManager.addSubtask(subtask2);
         assertEquals(Status.NEW, epic.getStatus());
     }
 
     @Test
-    public void shouldReturnStatusDoneForListOfSubtasksWitsStatusDone() {
+    public void should_return_status_done_for_list_of_subtasks_wits_statusDone() {
         subtask1.setStatus(Status.DONE);
         subtask2.setStatus(Status.DONE);
         inMemoryTaskManager.addSubtask(subtask1);
@@ -50,7 +50,7 @@ class EpicTest {
     }
 
     @Test
-    public void shouldReturnStatusInProgressForListOfSubtasksWitsStatusDoneAndNew() {
+    public void should_return_status_inProgress_for_list_of_subtasks_wits_status_done_and_new() {
         subtask1.setStatus(Status.NEW);
         subtask2.setStatus(Status.DONE);
         inMemoryTaskManager.addSubtask(subtask1);
@@ -59,7 +59,7 @@ class EpicTest {
     }
 
     @Test
-    public void shouldReturnStatusInProgressForListOfSubtasksWitsStatusInProgress() {
+    public void should_return_status_inProgress_for_list_of_subtasks_wits_status_inProgress() {
         subtask1.setStatus(Status.IN_PROGRESS);
         subtask2.setStatus(Status.IN_PROGRESS);
         inMemoryTaskManager.addSubtask(subtask1);
@@ -68,21 +68,21 @@ class EpicTest {
     }
 
     @Test
-    public void shouldReturnStartTimeOfTheFirstSubtask() {
+    public void should_Return_Start_Time_Of_The_First_Subtask() {
         inMemoryTaskManager.addSubtask(subtask1);
         inMemoryTaskManager.addSubtask(subtask2);
         assertEquals(epic.getStartTime(), subtask2.getStartTime());
     }
 
     @Test
-    public void shouldReturnEndTimeOfTheLatestSubtask() {
+    public void should_return_rnd_rime_of_the_latest_subtask() {
         inMemoryTaskManager.addSubtask(subtask1);
         inMemoryTaskManager.addSubtask(subtask2);
         assertEquals(epic.getEndTime(), subtask1.getEndTime());
     }
 
     @Test
-    public void shouldReturnDurationBetweenTheEarliestAndTheLatestSubtask() {
+    public void should_return_duration_between_the_earliest_and_the_latest_subtask() {
         inMemoryTaskManager.addSubtask(subtask1);
         inMemoryTaskManager.addSubtask(subtask2);
         assertEquals(epic.getDuration(), Duration.between(subtask2.getStartTime(), subtask1.getEndTime()));
