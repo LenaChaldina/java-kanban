@@ -24,6 +24,9 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         super(inMemoryHistoryManager);
         this.fileName = fileName;
     }
+    protected FileBackedTasksManager(HistoryManagerService inMemoryHistoryManager) {
+        super(inMemoryHistoryManager);
+    }
 
     public static void main(String[] args) {
         //test2 FileBackedTasksManager
@@ -102,7 +105,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             bufferedWriter.write(historyToString(inMemoryHistoryManager));
 
         } catch (IOException e) {
-            throw new ManagerSaveException(e);
+            throw new ManagerSaveException(e.getMessage());
         }
     }
 

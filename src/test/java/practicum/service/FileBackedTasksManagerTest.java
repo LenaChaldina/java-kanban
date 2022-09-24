@@ -20,7 +20,7 @@ class FileBackedTasksManagerTest extends TaskManagerServiceTest<FileBackedTasksM
     private FileBackedTasksManager fileBackedTasksManager;
 
     @BeforeEach
-    public void beforeEach() {
+    public void beforeEach() throws IOException {
         file = new File("src/test/java/resources/tasksForTest");
         super.beforeEach();
         inMemoryHistoryManager = inMemoryTaskManager.getInMemoryHistoryManager();

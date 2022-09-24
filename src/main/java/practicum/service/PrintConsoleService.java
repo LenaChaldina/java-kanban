@@ -1,5 +1,6 @@
 package practicum.service;
 
+import practicum.http.client.KVTaskClient;
 import practicum.task.Epic;
 import practicum.task.Subtask;
 import practicum.task.Task;
@@ -36,6 +37,27 @@ public class PrintConsoleService {
     public void printPriority(TaskManagerService taskManagerService) {
         System.out.println("Отсортированные таски и сабтаски : ");
         for (Task task : taskManagerService.getPrioritizedTasks()) {
+            System.out.println(task);
+        }
+    }
+
+    public void printHttpTasks(HttpTaskManager taskManagerService) {
+        System.out.println("Tasks : ");
+        for (Task task : taskManagerService.getResultTasks().values()) {
+            System.out.println(task);
+        }
+    }
+
+    public void printHttpSubtask(HttpTaskManager taskManagerService) {
+        System.out.println("Subtasks : ");
+        for (Task task : taskManagerService.getResultSubtasks().values()) {
+            System.out.println(task);
+        }
+    }
+
+    public void printHttpEpic(HttpTaskManager taskManagerService) {
+        System.out.println("Epics : ");
+        for (Task task : taskManagerService.getResultEpics().values()) {
             System.out.println(task);
         }
     }

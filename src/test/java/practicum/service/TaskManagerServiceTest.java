@@ -1,14 +1,14 @@
 package practicum.service;
 
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import practicum.constants.Status;
+import practicum.http.server.KVServer;
 import practicum.task.Epic;
 import practicum.task.Subtask;
 import practicum.task.Task;
 
+import javax.imageio.IIOException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,8 +29,9 @@ public abstract class TaskManagerServiceTest<T extends TaskManagerService> {
     protected Subtask subtask2;
     protected Subtask subtask3;
 
+
     @BeforeEach
-    public void beforeEach() {
+    public void beforeEach() throws IOException {
         inMemoryTaskManager = (InMemoryTaskManager) getInMemoryTaskManager();
         testTasks = new HashMap<>();
         testSubtasks = new HashMap<>();
