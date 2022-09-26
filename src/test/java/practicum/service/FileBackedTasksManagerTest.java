@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +31,7 @@ class FileBackedTasksManagerTest extends TaskManagerServiceTest<FileBackedTasksM
     @Test
     public void loadFromFile() {
         fileBackedTasksManager = FileBackedTasksManager.loadFromFile(inMemoryTaskManager, inMemoryHistoryManager, file);
-        List<Task> tasks = inMemoryTaskManager.getTasks();
+        final Collection<Task> tasks = inMemoryTaskManager.getTasks();
         List<Epic> epics = inMemoryTaskManager.getEpics();
         List<Subtask> subtasks = inMemoryTaskManager.getSubtasks();
         assertEquals(2, tasks.size());

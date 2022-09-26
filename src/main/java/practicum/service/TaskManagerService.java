@@ -4,6 +4,7 @@ import practicum.task.Epic;
 import practicum.task.Subtask;
 import practicum.task.Task;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public interface TaskManagerService {
 
     void addSubtask(Subtask subtask);
 
-    ArrayList<Task> getTasks();
+    Collection<Task> getTasks();
 
     ArrayList<Epic> getEpics();
 

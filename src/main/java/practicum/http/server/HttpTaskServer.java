@@ -18,7 +18,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
+import java.util.Collection;
 
 import static practicum.utility.Managers.getGson;
 
@@ -32,6 +32,8 @@ public class HttpTaskServer {
 
     public HttpTaskServer() {
         try {
+            manager = Managers.getHttpTaskManager(gson);
+            historyManager = manager.getInMemoryHistoryManager();
             httpServer = HttpServer.create(new InetSocketAddress(PORT), 0);
             httpServer.createContext("/tasks", new TasksHandler());
             System.out.println("HTTP-сервер запущен на" + PORT + " порту");
@@ -42,8 +44,6 @@ public class HttpTaskServer {
 
     public void start() {
         httpServer.start();
-        manager = Managers.getHttpTaskManager(gson);
-        historyManager = manager.getInMemoryHistoryManager();
     }
 
     public void stop() {
@@ -194,7 +194,7 @@ public class HttpTaskServer {
             }
         }
 
-        private <T extends Task> void sendJson(final HttpExchange httpExchange, List<T> tasks) throws IOException {
+        private <T extends Task> void sendJson(final HttpExchange httpExchange, Collection<T> tasks) throws IOException {
             httpExchange.sendResponseHeaders(200, 0);
             try (final OutputStream outputStream = httpExchange.getResponseBody()) {
                 outputStream.write(gson.toJson(tasks).getBytes(DEFAULT_CHARSET));

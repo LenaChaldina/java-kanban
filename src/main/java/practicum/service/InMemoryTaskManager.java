@@ -15,7 +15,7 @@ public class InMemoryTaskManager implements TaskManagerService {
     protected final HashMap<Integer, Task> tasks = new HashMap<>();
     protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
     protected final HashMap<Integer, Epic> epics = new HashMap<>();
-    protected Set<Task> taskAndSubtaskPriority = new TreeSet<>(new InMemoryComparator());
+    protected final Set<Task> taskAndSubtaskPriority = new TreeSet<>(new InMemoryComparator());
     protected HashMap<Interval, Boolean> intervals = new HashMap<>();
     private int generator = 0;
     protected final HistoryManagerService inMemoryHistoryManager;
@@ -92,12 +92,13 @@ public class InMemoryTaskManager implements TaskManagerService {
 
     @Override
     //Получение списка всех задач.
-    public ArrayList<Task> getTasks() {
-        ArrayList<Task> taskValues = new ArrayList<>();
+    public Collection<Task> getTasks() {
+        return Collections.unmodifiableCollection(tasks.values());
+       /* final ArrayList<Task> taskValues = new ArrayList<>();
         for (Task task : tasks.values()) {
             taskValues.add(task);
         }
-        return taskValues;
+        return taskValues;*/
     }
 
     @Override

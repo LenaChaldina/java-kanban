@@ -10,6 +10,7 @@ import practicum.task.Task;
 import javax.imageio.IIOException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -90,12 +91,12 @@ public abstract class TaskManagerServiceTest<T extends TaskManagerService> {
     @Test
     @DisplayName("Проверка получения тасок")
     void getTasks() {
-        List<Task> tasks = inMemoryTaskManager.getTasks();
+        Collection<Task> tasks = inMemoryTaskManager.getTasks();
         assertTrue(tasks.isEmpty());
         inMemoryTaskManager.addTask(task1);
         inMemoryTaskManager.addTask(task2);
         tasks = inMemoryTaskManager.getTasks();
-        List<Task> finalTasks = tasks;
+        Collection<Task> finalTasks = tasks;
         Assertions.assertAll(
                 () -> Assertions.assertEquals(finalTasks.size(), 2),
                 () -> Assertions.assertTrue(finalTasks.contains(task1)),

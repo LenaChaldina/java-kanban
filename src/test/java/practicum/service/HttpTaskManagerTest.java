@@ -14,6 +14,7 @@ import practicum.utility.Managers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -100,7 +101,7 @@ public class HttpTaskManagerTest extends TaskManagerServiceTest<HttpTaskManager>
         managers.getSubtask(5);
         managers.getSubtask(6);
 
-        List<Task> httpTasks = managers.getTasks();
+        Collection<Task> httpTasks = managers.getTasks();
         List<Subtask> httpSubtask = managers.getSubtasks();
         List<Epic> httpEpic = managers.getEpics();
         List<Task> httpHistory = managers.inMemoryHistoryManager.getTasksHistory();

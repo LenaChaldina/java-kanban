@@ -1,6 +1,7 @@
 package practicum.service;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,8 +17,14 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
+import static practicum.service.FileBackedTasksManager.historyFromString;
+import static practicum.utility.Managers.getGson;
+//import static practicum.http.server.HttpTaskServer.gson;
 
 public class HttpTaskServerTest {
     KVServer kvServer;
@@ -30,9 +37,11 @@ public class HttpTaskServerTest {
     Subtask subtask;
     Subtask subtask2;
     Subtask subtask3;
+    Gson gson;
 
     @BeforeEach
     public void beforeEach() throws IOException {
+        gson = getGson();
 
         kvServer = new KVServer();
         kvServer.start();
@@ -61,6 +70,17 @@ public class HttpTaskServerTest {
         taskServer.manager.addSubtask(subtask);
         taskServer.manager.addSubtask(subtask2);
         taskServer.manager.addSubtask(subtask3);
+
+        taskServer.manager.getTask(0);
+        taskServer.manager.getTask(1);
+        taskServer.manager.getTask(2);
+
+        taskServer.manager.getEpic(3);
+        taskServer.manager.getEpic(4);
+
+        taskServer.manager.getSubtask(5);
+        taskServer.manager.getSubtask(6);
+        taskServer.manager.getSubtask(7);
     }
 
     @AfterEach
@@ -75,8 +95,70 @@ public class HttpTaskServerTest {
         URI url = URI.create("http://localhost:8080/tasks/task/");
         HttpRequest request = HttpRequest.newBuilder().uri(url).GET().build();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        final Collection<Task> tasks = gson.fromJson(response.body(), new TypeToken<ArrayList<Task>>() {
+        }.getType());
 
         assertEquals(200, response.statusCode());
+        //проверить не пустой ли список
+        assertNotNull(tasks, "Задачи не возвращаются");
+        //размер возвращаемого массива данных
+        assertEquals(3, tasks.size(), "Неверное количество задач");
+        //проверить 1-й элемент коллекции совпадает ли task, который вы создали в BeforeEach
+        assertTrue(tasks.contains(task), "Задачи не совпадают");
+    }
+
+    @Test
+    public void getSubtasks() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        URI url = URI.create("http://localhost:8080/tasks/subtask/");
+        HttpRequest request = HttpRequest.newBuilder().uri(url).GET().build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        final List<Subtask> subtasks = gson.fromJson(response.body(), new TypeToken<ArrayList<Subtask>>() {
+        }.getType());
+
+        assertEquals(200, response.statusCode());
+        //проверить не пустой ли список
+        assertNotNull(subtasks, "Задачи не возвращаются");
+        //размер возвращаемого массива данных
+        assertEquals(3, subtasks.size(), "Неверное количество задач");
+        //проверить 1-й элемент коллекции совпадает ли task, который вы создали в BeforeEach
+        assertEquals(subtask, subtasks.get(0), "Задачи не совпадают");
+    }
+
+    @Test
+    public void getEpics() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        URI url = URI.create("http://localhost:8080/tasks/epic/");
+        HttpRequest request = HttpRequest.newBuilder().uri(url).GET().build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        final List<Epic> epics = gson.fromJson(response.body(), new TypeToken<ArrayList<Epic>>() {
+        }.getType());
+
+        assertEquals(200, response.statusCode());
+        //проверить не пустой ли список
+        assertNotNull(epics, "Задачи не возвращаются");
+        //размер возвращаемого массива данных
+        assertEquals(2, epics.size(), "Неверное количество задач");
+        //проверить 1-й элемент коллекции совпадает ли task, который вы создали в BeforeEach
+        assertEquals(epic, epics.get(0), "Задачи не совпадают");
+    }
+
+    @Test
+    public void getHistory() throws IOException, InterruptedException {
+        HttpClient client = HttpClient.newHttpClient();
+        URI url = URI.create("http://localhost:8080/tasks/history/");
+        HttpRequest request = HttpRequest.newBuilder().uri(url).GET().build();
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+        final List<Task> history = gson.fromJson(response.body(), new TypeToken<ArrayList<Epic>>() {
+        }.getType());
+
+        assertEquals(200, response.statusCode());
+        //проверить не пустой ли список
+        assertNotNull(history, "История не возвращается");
+        //размер возвращаемого массива данных
+        assertEquals(8, history.size(), "Неверное количество задач в истории");
+        //проверить 1-й элемент коллекции совпадает ли task, который вы создали в BeforeEach
+        assertEquals(task, history.get(0), "Задачи в истории не совпадают");
     }
 
     @Test
@@ -102,4 +184,5 @@ public class HttpTaskServerTest {
 
         assertEquals(200, response.statusCode());
     }
+
 }
