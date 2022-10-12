@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="RemoteRepositoriesConfiguration">
+    <remote-repository>
+      <option name="id" value="mdm-snapshots" />
+      <option name="name" value="mdm-snapshots" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="PPRB_dev_group" />
+      <option name="name" value="PPRB_dev_group" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="mdm-release" />
+      <option name="name" value="mdm-release" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="PPRBAC_release" />
+      <option name="name" value="intlab-snapshot" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="PRB_MDMP_release" />
+      <option name="name" value="prb-mdmp_release" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="nsi-facade_release" />
+      <option name="name" value="nsi-facade_release" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="18plus_RKO_release" />
+      <option name="name" value="intlab-snapshot" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="gg" />
+      <option name="name" value="gg" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="prb-mdmp_snapshot" />
+      <option name="name" value="prb-mdmp_snapshot" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="jboss.community" />
+      <option name="name" value="JBoss Community repository" />
+      <option name="url" value="https://repository.jboss.org/nexus/content/repositories/public/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Platform_third_party" />
+      <option name="name" value="libs-third_party" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="ucp_release_repo" />
+      <option name="name" value="ucp_release_repo" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="code-review-snapshot-repo" />
+      <option name="name" value="code-review-snapshot-repo" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="PPRB_Application-Journal_snapshot" />
+      <option name="name" value="PPRB_Application-Journal_snapshot" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="INTLAB_snapshot" />
+      <option name="name" value="intlab-snapshot" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="ucp-snapshot" />
+      <option name="name" value="ucp-snapshot" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Central repository" />
+      <option name="url" value="https://repo1.maven.org/maven2" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="code-review-release-repo" />
+      <option name="name" value="code-review-release-repo" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="esb_release" />
+      <option name="name" value="esb_release" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="central" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/repositories/central" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="INTLAB_release" />
+      <option name="name" value="intlab-release" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Platform_release" />
+      <option name="name" value="libs-release" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="18plus_RKO_snapshot" />
+      <option name="name" value="18plus_RKO_snapshot" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="Platform_snapshot" />
+      <option name="name" value="libs-snapshot" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="ucp_thirdparty" />
+      <option name="name" value="ucp_thirdparty" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="PPRB_Application-Journal_release" />
+      <option name="name" value="PPRB_Application-Journal_release" />
+      <option name="url" value="http://sbtnexus.delta.sbrf.ru:8081/nexus/content/groups/internal" />
+    </remote-repository>
+  </component>
+</project>
