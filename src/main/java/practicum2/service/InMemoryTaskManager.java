@@ -1,7 +1,10 @@
 package practicum2.service;
 
 
+import practicum.constants.Status;
 import practicum2.task.Epic;
+import practicum2.task.InMemTaskData;
+import practicum2.task.InMemoryTask;
 import practicum2.task.Subtask;
 import practicum2.task.Task;
 import practicum2.task.TheTask;
@@ -10,9 +13,11 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
+import static practicum.constants.Status.*;
+
 
 public class InMemoryTaskManager implements TaskManagerService {
-    protected final HashMap<Integer, Task> tasks = new HashMap<>();
+    protected final HashMap<Integer, InMemTaskData> taskStorage = new HashMap<>();
     protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
     protected final HashMap<Integer, Epic> epics = new HashMap<>();
 
@@ -37,9 +42,9 @@ public class InMemoryTaskManager implements TaskManagerService {
     @Override
     public Task addTask(String name, String description) {
         int taskId = generator++;
-        Task task = new TheTask(taskId, name, description);
-        tasks.put(taskId, task);
-        return task;
+        InMemTaskData taskData = new InMemTaskData(taskId, name, description, NEW, LocalDateTime.now(), LocalDateTime.now());
+        taskStorage.put(taskId, taskData);
+        return new InMemoryTask(taskStorage, taskId);
     }
 
     @Override
