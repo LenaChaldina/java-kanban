@@ -43,4 +43,16 @@ public class InMemoryTask implements Task {
     public LocalDateTime endTime() {
         return storageMap.get(id).endTime;
     }
+
+    @Override
+    public String toString() {
+        return "InMemoryTask{" +
+                "id=" + id +
+                ", name='" + name() + '\'' +
+                ", description='" + description() + '\'' +
+                ", duration=" + duration() +
+                ", startTime=" + startTime() +
+                ", endTime=" + endTime() +
+                '}';
+    }
 }
