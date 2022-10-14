@@ -30,6 +30,7 @@ public class Main {
         testKVServer();
     }
 
+
     private static void testKVServer() throws IOException {
 
         KVServer kvServer = new KVServer();
