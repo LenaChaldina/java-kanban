@@ -1,27 +1,20 @@
 package practicum2.service;
 
 
-import practicum.constants.Status;
-import practicum2.task.Epic;
-import practicum2.task.InMemTaskData;
-import practicum2.task.InMemoryTask;
-import practicum2.task.Subtask;
-import practicum2.task.Task;
-import practicum2.task.TheTask;
+import practicum2.task.*;
 
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-import static practicum.constants.Status.*;
-
 
 public class InMemoryTaskManager implements TaskManagerService {
-    protected final HashMap<Integer, InMemTaskData> taskStorage = new HashMap<>();
-    protected final HashMap<Integer, Subtask> subtasks = new HashMap<>();
-    protected final HashMap<Integer, Epic> epics = new HashMap<>();
+    private final TaskStorage taskStorage;
+    private final HashMap<Integer, Subtask> subtasks = new HashMap<>();
+    private final HashMap<Integer, Epic> epics = new HashMap<>();
 
-    private int generator = 0;
+    public InMemoryTaskManager(TaskStorage taskStorage) {
+        this.taskStorage = taskStorage;
+    }
 
 
     @Override
@@ -41,20 +34,18 @@ public class InMemoryTaskManager implements TaskManagerService {
 
     @Override
     public Task addTask(String name, String description) {
-        int taskId = generator++;
-        InMemTaskData taskData = new InMemTaskData(taskId, name, description, NEW, LocalDateTime.now(), LocalDateTime.now());
-        taskStorage.put(taskId, taskData);
-        return new InMemoryTask(taskStorage, taskId);
+        return taskStorage.addTask(name, description);
     }
 
     @Override
-    public void addEpic(String name, String description, LocalDateTime endTime) {
-
+    public Epic addEpic(String name, String description/*, LocalDateTime endTime*/) {
+        Task task = taskStorage.addTask(name, description);
+        return new InMemoryEpic(task, taskStorage);
     }
 
     @Override
-    public void addSubtask(String name, String description) {
-
+    public Subtask addSubtask(Epic epic, String name, String description) {
+        return epic.addSubTask(name, description);
     }
 
 

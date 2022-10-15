@@ -4,6 +4,5 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public interface Epic extends Task{
-    Subtask addSubTask();
-
+    Subtask addSubTask(String name, String description);
 }

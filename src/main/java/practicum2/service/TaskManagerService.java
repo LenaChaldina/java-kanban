@@ -19,9 +19,9 @@ public interface TaskManagerService {
 
     Task addTask(String name, String description);
 
-    void addEpic(String name, String description, LocalDateTime endTime);
+    Epic addEpic(String name, String description/*, LocalDateTime endTime*/);
 
-    void addSubtask(String name, String description);
+    Subtask addSubtask(Epic epic, String name, String description);
 
    /* Collection<Task> getTasks();
 
