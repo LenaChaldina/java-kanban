@@ -1,6 +1,7 @@
 package practicum2.service;
 
 
+import practicum.constants.Status;
 import practicum2.task.Epic;
 import practicum2.task.Subtask;
 import practicum2.task.Task;
@@ -22,6 +23,8 @@ public interface TaskManagerService {
     Epic addEpic(String name, String description/*, LocalDateTime endTime*/);
 
     Subtask addSubtask(Epic epic, String name, String description);
+
+    void setTaskStatus(Task task, Status status);
 
    /* Collection<Task> getTasks();
 

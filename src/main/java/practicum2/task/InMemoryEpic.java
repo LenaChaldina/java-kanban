@@ -1,5 +1,7 @@
 package practicum2.task;
 
+import practicum.constants.Status;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -36,6 +38,11 @@ public class InMemoryEpic implements Epic {
     @Override
     public String description() {
         return task.description();
+    }
+
+    @Override
+    public Status status() {
+        return task.status();
     }
 
     @Override

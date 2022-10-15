@@ -1,5 +1,7 @@
 package practicum2.task;
 
+import practicum.constants.Status;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -42,6 +44,11 @@ public class CachedTask implements Task {
     @Override
     public String description() {
         return description;
+    }
+
+    @Override
+    public Status status() {
+        return innerTask.status();
     }
 
     @Override

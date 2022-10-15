@@ -1,15 +1,19 @@
 package practicum2.task;
 
+import practicum.constants.Status;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Map;
 
 public class InMemoryTask implements Task {
     private final Map<Integer, InMemTaskData> storageMap;
+    private final Map<Integer, Status> statusMap;
     private final int id;
 
-    public InMemoryTask(Map<Integer, InMemTaskData> storageMap, int id) {
+    public InMemoryTask(Map<Integer, InMemTaskData> storageMap, Map<Integer, Status> statusMap, int id) {
         this.storageMap = storageMap;
+        this.statusMap = statusMap;
         this.id = id;
     }
 
@@ -26,6 +30,11 @@ public class InMemoryTask implements Task {
     @Override
     public String description() {
         return storageMap.get(id).description;
+    }
+
+    @Override
+    public Status status() {
+        return statusMap.get(id);
     }
 
     @Override
@@ -50,6 +59,7 @@ public class InMemoryTask implements Task {
                 "id=" + id +
                 ", name='" + name() + '\'' +
                 ", description='" + description() + '\'' +
+                ", status=" + status() +
                 ", duration=" + duration() +
                 ", startTime=" + startTime() +
                 ", endTime=" + endTime() +

@@ -1,6 +1,7 @@
 package practicum2.service;
 
 
+import practicum.constants.Status;
 import practicum2.task.*;
 
 import java.util.HashMap;
@@ -46,6 +47,11 @@ public class InMemoryTaskManager implements TaskManagerService {
     @Override
     public Subtask addSubtask(Epic epic, String name, String description) {
         return epic.addSubTask(name, description);
+    }
+
+    @Override
+    public void setTaskStatus(Task task, Status status) {
+        taskStorage.setStatus(task, status);
     }
 
 

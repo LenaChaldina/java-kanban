@@ -1,5 +1,7 @@
 package practicum2.task;
 
+import practicum.constants.Status;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -30,6 +32,11 @@ public class InMemorySubtask implements Subtask {
     @Override
     public String description() {
         return task.description();
+    }
+
+    @Override
+    public Status status() {
+        return task.status();
     }
 
     @Override

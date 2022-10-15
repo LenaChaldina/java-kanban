@@ -10,7 +10,7 @@ public interface Task {
     String name();
     String description();
 
-    //Status status();
+    Status status();
     Duration duration();
     LocalDateTime startTime();
     LocalDateTime endTime();
