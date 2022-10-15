@@ -10,8 +10,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public interface TaskManagerService {
-
-
     Map<Integer, Task> getResultTasks();
 
     Map<Integer, Subtask> getResultSubtasks();
